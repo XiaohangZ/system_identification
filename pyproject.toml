@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "system-identification-of-ship"
+version = "0.1.0"
+description = ""
+authors = ["Xiaohang Zhao"]
+readme = "README.md"
+packages = [{include = "system_identification_of_ship"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
