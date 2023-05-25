@@ -1,12 +1,14 @@
 import numpy as np
 import pandas as pd
 import os
+import pathlib
 from datetime import datetime
 import matplotlib.pyplot as plt
-import pathlib
+import torch.utils.data as Data
 import torch
 import csv
 from collections.abc import Iterable
+from _operator import truediv
 
 
 # path1 = pathlib.Path.cwd()
@@ -14,11 +16,12 @@ from collections.abc import Iterable
 # path2 = os.getcwd()
 # print(path2)
 
-class GenerateData(torch.utils.data.Dataset):
+class GenerateData:
     def __init__(self) ->None:
         pass
 
-    def get_data(self, dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['u', 'deltal', 'r']):
+    def get_data(self, dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['u', 'deltal', 'r'], 
+                 transform = None, seqLength = None):
         print(dataDir+type+'/'+exp_time+".csv")
 
         csvFiles = dataDir+type+'/'+exp_time+".csv"
@@ -47,16 +50,54 @@ class GenerateData(torch.utils.data.Dataset):
                 #print(data_exp_list)
             data=torch.cat(data_exp_list,dim=1)
             print(data.shape)
-            input = data[:,:-1]
-            output = data[:,-1]
-            print(input.shape, output.shape)        
+            input_para = data[:,:-1]
+            output_para = data[:,-1]
+            #print(input.shape, output.shape)
+            input_list = input_para.numpy().tolist() 
+            output_list = output_para.numpy().tolist()
+            print(len(input_list),len(output_list))        
         else:
             print('no parameter')
-        
-            
-        return input,output
 
-print(GenerateData().get_data())
+
+        if seqLength is not None:
+            temp = [] 
+            temp2 = []
+            for i in range(round(truediv(len(input_list),seqLength))):
+                if (len(input_list) - i*seqLength) < seqLength:
+                    pass 
+                     #right = len(t)
+
+                else: 
+                    right = (i+1)*seqLength
+                    temp.append(input_list[i*seqLength:right])
+                    temp2.append(output_list[i*seqLength:right])
+                                
+            input = temp
+            output = temp2
+            print(input, len(input), output, len(output))
+            input_tensor = torch.tensor(input)
+            output_tensor = torch.tensor(output)
+            print(input_tensor.shape, output_tensor.shape)
+
+            torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
+            
+        else: 
+            input = input_list
+            output = output_list
+             
+        return torch_dataset
+    
+
+TrainData = GenerateData().get_data(dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['u', 'deltal', 'r'], seqLength = 40)
+train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
+
+for i, (data, target) in enumerate(train_loader):
+    print(data.shape,target.shape)
+
+
+
+
 #print(isinstance(['u', 'deltal', 'r'], Iterable))
 
 
