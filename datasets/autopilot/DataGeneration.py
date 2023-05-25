@@ -73,18 +73,19 @@ class GenerateData:
                     temp.append(input_list[i*seqLength:right])
                     temp2.append(output_list[i*seqLength:right])
                                 
-            input = temp
-            output = temp2
-            print(input, len(input), output, len(output))
-            input_tensor = torch.tensor(input)
-            output_tensor = torch.tensor(output)
+            input_seq = temp
+            output_seq = temp2
+            print(input_seq, len(input_seq), output_seq, len(output_seq))
+            input_tensor = torch.tensor(input_seq)
+            output_tensor = torch.tensor(output_seq)
             #print(input_tensor.shape, output_tensor.shape)
 
             torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
             
         else: 
-            input = input_list
-            output = output_list
+            input_tensor = torch.tensor(input_list)
+            output_tensor = torch.tensor(output_list)
+            torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
              
         return torch_dataset
     
@@ -92,8 +93,8 @@ class GenerateData:
 TrainData = GenerateData().get_data(dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['u', 'deltal', 'r'], seqLength = 40)
 train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
 
-for i, (data, target) in enumerate(train_loader):
-    print(data.shape,target.shape)
+for i, (input, output) in enumerate(train_loader):
+    print(input.shape,output.shape)
 
 
 
