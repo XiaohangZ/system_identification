@@ -15,7 +15,10 @@ from collections.abc import Iterable
 # print(path2)
 
 class GenerateData(torch.utils.data.Dataset):
-    def __init__(self, dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['u', 'deltal', 'r']):
+    def __init__(self) ->None:
+        pass
+
+    def get_data(self, dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['u', 'deltal', 'r']):
         print(dataDir+type+'/'+exp_time+".csv")
 
         csvFiles = dataDir+type+'/'+exp_time+".csv"
@@ -51,9 +54,9 @@ class GenerateData(torch.utils.data.Dataset):
             print('no parameter')
         
             
-        return
+        return input,output
 
-GenerateData()
+print(GenerateData().get_data())
 #print(isinstance(['u', 'deltal', 'r'], Iterable))
 
 
