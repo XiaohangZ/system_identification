@@ -46,10 +46,11 @@ class autopilot_dataset:
             U_list.append(U)
             delta_list.append(delta)
             r_list.append(r)
+            t = t+1
 
             dot_delta = random.uniform(-dot_delta_max, dot_delta_max) 
             delta = delta + dot_delta
           
         return U_list, delta_list, r_list
     
-print(autopilot_dataset().get_data(5))
+print(autopilot_dataset().get_data(2))
