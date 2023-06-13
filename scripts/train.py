@@ -5,7 +5,7 @@ import os
 
 from metrics import * 
 from models.nn import *
-from datasets.big_dataset.DataGeneration import *
+from datasets.patrolship.DataGeneration_all import *
 from config import device
 from utils import * 
 
