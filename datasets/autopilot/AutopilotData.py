@@ -20,6 +20,7 @@ class autopilot_dataset:
         U_list=[]
         delta_list=[]
         r_list=[]
+        t_list=[]
         t=0
 
         while t < T:
@@ -42,15 +43,18 @@ class autopilot_dataset:
             F_hydro = N_r*r + N_r3*math.pow(r,3) + N_U_r3*U*math.pow(r,3) + N_U2_r3*math.pow(U,2)*math.pow(r,3) + N_U3_r3*math.pow(U,3)*math.pow(r,3)
             dot_r = (F_rudder - F_hydro) / (T_dotr + T_U_dotr*U + T_U2_dotr*math.pow(U,2) + T_U3_dotr*math.pow(U,3))
             r = r + 0.01*dot_r
-
+            
+            t = t+1
             U_list.append(U)
             delta_list.append(delta)
             r_list.append(r)
-            t = t+1
+            t_list.append(t)
+
+            
 
             dot_delta = random.uniform(-dot_delta_max, dot_delta_max) 
             delta = delta + dot_delta
           
-        return U_list, delta_list, r_list
+        return t_list, U_list, delta_list, r_list
     
-print(autopilot_dataset().get_data(2))
+print(autopilot_dataset().get_data(3))
