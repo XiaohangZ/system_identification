@@ -1,6 +1,9 @@
 from fractions import Fraction
 import math
 import random
+import torch
+from _operator import truediv
+import torch.utils.data as Data
 
 
 class autopilot_dataset:
@@ -8,7 +11,7 @@ class autopilot_dataset:
     def __init__(self) -> None:
         pass
 
-    def get_data(self, T):
+    def get_data(self, T, seqLength = None):
         #define initial state
         U = random.uniform(0, 6)
 
@@ -50,11 +53,54 @@ class autopilot_dataset:
             r_list.append(r)
             t_list.append(t)
 
-            
-
             dot_delta = random.uniform(-dot_delta_max, dot_delta_max) 
             delta = delta + dot_delta
+
+            U_tensor = torch.tensor(U_list)
+            delta_tensor = torch.tensor(delta_list)
+            r_tensor = torch.tensor(r_list)
+            data_tensor = torch.stack([U_tensor, delta_tensor, r_tensor], dim=1)
+            input_tensor = torch.stack([U_tensor, delta_tensor], dim=1)
+            input_list = input_tensor.tolist()
+            output_tensor = r_tensor
+            output_list = r_list
+
+
+        if seqLength is not None:
+            temp = [] 
+            temp2 = []
+            for i in range(round(truediv(len(input_list),seqLength))):
+                if (len(input_list) - i*seqLength) < seqLength:
+                    pass 
+                     #right = len(t)
+
+                else: 
+                    right = (i+1)*seqLength
+                    temp.append(input_list[i*seqLength:right])
+                    temp2.append(output_list[i*seqLength:right])
+                                
+            input_seq = temp
+            output_seq = temp2
+            #print(input_seq, len(input_seq), output_seq, len(output_seq))
+            input_tensor = torch.tensor(input_seq)
+            output_tensor = torch.tensor(output_seq)
+            #print(input_tensor.shape, output_tensor.shape)
+
+            torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
+            
+        else: 
+            input_tensor = torch.tensor(input_list)
+            output_tensor = torch.tensor(output_list)
+            torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
+
           
-        return t_list, U_list, delta_list, r_list
+        return torch_dataset
     
-print(autopilot_dataset().get_data(3))
+#print(autopilot_dataset().get_data(T=320, seqLength=10))
+
+TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
+train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
+
+for i, (input, output) in enumerate(train_loader):
+    print(input.shape,output.shape)
+
