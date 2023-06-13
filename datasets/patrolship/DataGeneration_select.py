@@ -90,11 +90,19 @@ class GenerateData:
         return torch_dataset
     
 
+#if select feature
 TrainData = GenerateData().get_data(dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['u', 'deltal', 'r'], seqLength = 40)
 train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
 
 for i, (input, output) in enumerate(train_loader):
     print(input.shape,output.shape)
+
+#if all
+# TrainData = GenerateData().get_data(dataDir='dataverse_files/patrol_ship_routine/processed/', type='train', exp_time='20190805-095929', parameter_exp=['n', 'deltal','deltar','Vw','alpha_x','alpha_y','u','v','p','phi','r'], seqLength = 40)
+# train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
+
+# for i, (input, output) in enumerate(train_loader):
+#     print(input.shape,output.shape)
 
 
 
