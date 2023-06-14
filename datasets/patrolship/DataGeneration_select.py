@@ -75,7 +75,7 @@ class GenerateData:
                                 
             input_seq = temp
             output_seq = temp2
-            print(input_seq, len(input_seq), output_seq, len(output_seq))
+            #print(input_seq, len(input_seq), output_seq, len(output_seq))
             input_tensor = torch.tensor(input_seq)
             output_tensor = torch.tensor(output_seq)
             #print(input_tensor.shape, output_tensor.shape)

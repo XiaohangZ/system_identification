@@ -9,10 +9,10 @@ sys.path.append(o_path)
 
 from metrics import * 
 from models.nn import *
-from datasets.patrolship.DataGeneration_all import *
 from config import device
 from utils import * 
-
+from datasets.autopilot.AutopilotData import *
+from datasets.patrolship.DataGeneration_all import *
 
 learning_rate = .001
 num_epochs = 50
