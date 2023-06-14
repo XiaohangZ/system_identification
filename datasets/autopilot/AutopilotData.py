@@ -13,7 +13,7 @@ class autopilot_dataset:
 
     def get_data(self, T, seqLength = None):
         #define initial state
-        U = random.uniform(0, 6)
+        U = random.uniform(5, 12)
 
         delta_max = 30*math.pi/180
         dot_delta_max = 10*math.pi/180
@@ -100,6 +100,8 @@ class autopilot_dataset:
 
 TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
 train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
+
+print(len(train_loader))
 
 for i, (input, output) in enumerate(train_loader):
     print(input.shape,output.shape)
