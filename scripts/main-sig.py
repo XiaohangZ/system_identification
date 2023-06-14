@@ -1,11 +1,16 @@
 import torch
 import torch.nn as nn
 import numpy as np
-import os
 from math import sqrt
+import sys
+import os
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
+
+
+o_path = os.getcwd()
+sys.path.append(o_path)
 
 from metrics import * 
 from models.nn import *
@@ -28,7 +33,7 @@ def main() -> None:
 
     learning_rate = .001
     num_epochs = 50
-    optimizer = torch.optim.Adam(nn.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(FC().parameters(), lr=learning_rate)
 
     train(model = nn, SavingName='./checkpoints/nn.ckpt', train_loader = test_loader, val_loader=val_loader, optimizer = optimizer)
     test(model = nn, SavingName='./checkpoints/nn.ckpt', test_loader=test_loader)

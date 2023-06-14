@@ -2,6 +2,10 @@ import torch
 import torch.nn as nn
 import numpy as np
 import os
+import sys
+
+o_path = os.getcwd()
+sys.path.append(o_path)
 
 from metrics import * 
 from models.nn import *
@@ -12,7 +16,7 @@ from utils import *
 
 learning_rate = .001
 num_epochs = 50
-optimizer = torch.optim.Adam()
+optimizer = torch.optim.Adam(FC().parameters(), lr=learning_rate)
 
 def train(model = None,SavingName=None, train_loader = None, val_loader=None, num_epochs = None, optimizer = None):
        
