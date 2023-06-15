@@ -4,6 +4,7 @@ import random
 import torch
 from _operator import truediv
 import torch.utils.data as Data
+import pandas as pd
 
 
 class autopilot_dataset:
@@ -93,17 +94,23 @@ class autopilot_dataset:
             input_tensor = torch.tensor(input_list)
             output_tensor = torch.tensor(output_list)
             torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
+        
+
+        data_list = data_tensor.tolist()
+        df1 = pd.DataFrame(data = data_list,
+        columns=['U', 'delta', 'r'])
+        df1.to_csv('datasets/autopilot/result.csv',index=True)
 
           
         return torch_dataset
     
-#print(autopilot_dataset().get_data(T=320, seqLength=10))
+# print(autopilot_dataset().get_data(T=360, seqLength=None))
 
-TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
-train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
+# TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
+# train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
 
-print(len(train_loader))
+# print(len(train_loader))
 
-for i, (input, output) in enumerate(train_loader):
-    print(input.shape,output.shape)
+# for i, (input, output) in enumerate(train_loader):
+#     print(input.shape,output.shape)
 

@@ -40,7 +40,7 @@ def main() -> None:
     num_epochs = 50
     optimizer = torch.optim.Adam(FC().parameters(), lr=learning_rate)
 
-    train(model = FC, SavingName='./checkpoints/nn.ckpt', train_loader = train_loader, val_loader=val_loader, optimizer = optimizer)
+    train(model = FC, SavingName='./checkpoints/nn.ckpt', train_loader = train_loader, val_loader=val_loader)
     test(model = FC, SavingName='./checkpoints/nn.ckpt', test_loader=test_loader)
 
 main()
