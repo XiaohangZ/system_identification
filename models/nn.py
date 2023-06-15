@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 class FC(nn.Module):
-    def __init__(self,inputNode=561,hiddenNode = 256, outputNode=1):   
+    def __init__(self,inputNode=2,hiddenNode = 256, outputNode=1):   
         super(FC, self).__init__()     
         #Define Hyperparameters
         self.inputLayerSize = inputNode
@@ -23,7 +23,7 @@ class FC(nn.Module):
     
 
 class FCLSTM(nn.Module):
-    def __init__(self,inputNode=561,hiddenNode = 128, outputNode=1):   
+    def __init__(self,inputNode=2,hiddenNode = 128, outputNode=1):   
         super(FCLSTM, self).__init__()
              
         self.inp = nn.Linear(inputNode, hiddenNode)
