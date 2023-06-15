@@ -109,22 +109,22 @@ class autopilot_dataset:
     
 # print(autopilot_dataset().get_data(T=360, seqLength=None))
 
-TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
-train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=10,shuffle=False)
+# TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
+# train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=10,shuffle=False)
 
-ValData = autopilot_dataset().get_data(T=160, seqLength=10)
-val_loader = torch.utils.data.DataLoader(dataset=ValData,batch_size=10,shuffle=False)
+# ValData = autopilot_dataset().get_data(T=160, seqLength=10)
+# val_loader = torch.utils.data.DataLoader(dataset=ValData,batch_size=10,shuffle=False)
 
 
-TestData = autopilot_dataset().get_data(T=160, seqLength=10)
-test_loader = torch.utils.data.DataLoader(dataset=TestData,batch_size=10,shuffle=False)
+# TestData = autopilot_dataset().get_data(T=160, seqLength=10)
+# test_loader = torch.utils.data.DataLoader(dataset=TestData,batch_size=10,shuffle=False)
 
-for i, (input, output) in enumerate(train_loader):
-    print(input.shape,output.shape)
+# for i, (input, output) in enumerate(train_loader):
+#     print(input.shape,output.shape)
 
-for i, (input, output) in enumerate(val_loader):
-    print(input.shape,output.shape)
+# for i, (input, output) in enumerate(val_loader):
+#     print(input.shape,output.shape)
 
-for i, (input, output) in enumerate(test_loader):
-    print(input.shape,output.shape)
+# for i, (input, output) in enumerate(test_loader):
+#     print(input.shape,output.shape)
 

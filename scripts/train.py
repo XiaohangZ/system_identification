@@ -21,6 +21,11 @@ num_epochs = 50
 def train(model = None,SavingName=None, train_loader = None, val_loader=None, num_epochs = None):
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     total_step = len(train_loader)
+
+    accuracy_mean = []
+    accuracy_change=[]
+    epoch_change=[]
+
     for epoch in range(num_epochs):
         for i, (input, output) in enumerate(train_loader):
 
@@ -58,10 +63,33 @@ def train(model = None,SavingName=None, train_loader = None, val_loader=None, nu
                     
                     gt = np.asarray(gt,np.float32)
                     pred = np.asarray(pred)
-                        
                     print('Val Accuracy of the model on the {} epoch: {} %'.format(epoch,accuracy(pred,gt)))
+
+                    # accuracy_mean.append(accuracy(pred,gt))
+                    # accuracy_10 = accuracy_mean[epoch:]                   
+                    # #print(accuracy_10)
+
                     
+                    # if len(accuracy_10)==10:
+                    #   a=0
+                    #   for i in accuracy_10:
+                    #     a=i+a
+                    #   print('Mean Val Accuracy of the model on the {} epoch: {} %'.format(epoch,a/len(train_loader)))
+                    #   epoch_change.append(epoch)
+                    #   accuracy_change.append(a/len(train_loader))
+                    #   print(epoch_change,accuracy_change)
+                    #   if len(accuracy_change)==(num_epochs/10):
+                    #     # learning process visualization
+                    #     plt.title('Training Accuracy')
+                    #     plt.ylabel('Accuracy')
+                    #     plt.xlabel('Epoch')
+                    #     plt.grid(True)
+                    #     plt.autoscale(axis='x', tight=True)
+                    #     plt.plot(epoch_change,accuracy_change)
+                    #     plt.show()
+
                 model.train()
+
             
     # Save the model checkpoint
     checkDirMake(os.path.dirname(SavingName))
