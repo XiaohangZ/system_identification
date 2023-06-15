@@ -12,7 +12,7 @@ from models.nn import *
 from config import *
 from utils import * 
 from datasets.autopilot.AutopilotData import *
-from datasets.patrolship.DataGeneration_all import *
+from datasets.patrolship.DataLoader_all import *
 
 learning_rate = .001
 num_epochs = 50

@@ -18,7 +18,7 @@ from config import device
 from utils import * 
 from train import *
 from datasets.autopilot.AutopilotData import *
-from datasets.patrolship.DataGeneration_all import *
+from datasets.patrolship.DataLoader_all import *
 
 def main() -> None:
 
