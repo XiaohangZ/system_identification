@@ -24,6 +24,7 @@ class autopilot_dataset:
         U_list=[]
         delta_list=[]
         r_list=[]
+        r_list_sig=[]
         t_list=[]
         t=0
 
@@ -53,19 +54,21 @@ class autopilot_dataset:
             U_list.append(U)
             delta_list.append(delta)
             r_list.append(r)
+            r_list_sig.append([r])
             t_list.append(t)
 
             dot_delta = random.uniform(-dot_delta_max, dot_delta_max) 
             delta = delta + dot_delta
 
-            U_tensor = torch.tensor(U_list)
-            delta_tensor = torch.tensor(delta_list)
-            r_tensor = torch.tensor(r_list)
-            data_tensor = torch.stack([U_tensor, delta_tensor, r_tensor], dim=1)
-            input_tensor = torch.stack([U_tensor, delta_tensor], dim=1)
-            input_list = input_tensor.tolist()
-            output_tensor = r_tensor
-            output_list = r_list
+        U_tensor = torch.tensor(U_list)
+        delta_tensor = torch.tensor(delta_list)
+        r_tensor = torch.tensor(r_list)
+        r_tensor_sig = torch.tensor(r_list_sig)
+        data_tensor = torch.stack([U_tensor, delta_tensor, r_tensor], dim=1)
+        input_tensor = torch.stack([U_tensor, delta_tensor], dim=1)
+        input_list = input_tensor.tolist()
+        output_tensor = r_tensor_sig
+        output_list = r_tensor_sig.tolist()
 
 
         if seqLength is not None:
@@ -106,22 +109,22 @@ class autopilot_dataset:
     
 # print(autopilot_dataset().get_data(T=360, seqLength=None))
 
-# TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
-# train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=10,shuffle=False)
+TrainData = autopilot_dataset().get_data(T=320, seqLength=10)
+train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=10,shuffle=False)
 
-# ValData = autopilot_dataset().get_data(T=160, seqLength=10)
-# val_loader = torch.utils.data.DataLoader(dataset=ValData,batch_size=10,shuffle=False)
+ValData = autopilot_dataset().get_data(T=160, seqLength=10)
+val_loader = torch.utils.data.DataLoader(dataset=ValData,batch_size=10,shuffle=False)
 
 
-# TestData = autopilot_dataset().get_data(T=160, seqLength=10)
-# test_loader = torch.utils.data.DataLoader(dataset=TestData,batch_size=10,shuffle=False)
+TestData = autopilot_dataset().get_data(T=160, seqLength=10)
+test_loader = torch.utils.data.DataLoader(dataset=TestData,batch_size=10,shuffle=False)
 
-# for i, (input, output) in enumerate(train_loader):
-#     print(input.shape,output.shape)
+for i, (input, output) in enumerate(train_loader):
+    print(input.shape,output.shape)
 
-# for i, (input, output) in enumerate(val_loader):
-#     print(input.shape,output.shape)
+for i, (input, output) in enumerate(val_loader):
+    print(input.shape,output.shape)
 
-# for i, (input, output) in enumerate(test_loader):
-#     print(input.shape,output.shape)
+for i, (input, output) in enumerate(test_loader):
+    print(input.shape,output.shape)
 

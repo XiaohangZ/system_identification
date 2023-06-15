@@ -9,7 +9,7 @@ sys.path.append(o_path)
 
 from metrics import * 
 from models.nn import *
-from config import *
+from config import device
 from utils import * 
 from datasets.autopilot.AutopilotData import *
 from datasets.patrolship.DataLoader_all import *
