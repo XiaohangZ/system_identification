@@ -11,7 +11,7 @@ from deepsysid.models_basic.nn import *
 def main() -> None:
 
     learning_rate = .001
-    num_epochs = 128
+    num_epochs = 125
     optimizer = torch.optim.Adam(FC().parameters(), lr=learning_rate)
 
     model = FC()

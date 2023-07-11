@@ -44,13 +44,13 @@ class DataLoader:
                 data_exp_list.append(data_exp)
                 # print(data_exp_list)
             data = torch.cat(data_exp_list, dim=1)
-            print(data.shape)
+            #print(data.shape)
             input_para = data[:, :-1]
             output_para = data[:, -1]
             # print(input.shape, output.shape)
             input_list = input_para.numpy().tolist()
             output_list = output_para.numpy().tolist()
-            print(len(input_list), len(output_list))
+            #print(len(input_list), len(output_list))
         else:
             print('no parameter')
 
