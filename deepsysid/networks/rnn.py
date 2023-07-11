@@ -2328,7 +2328,7 @@ class InitializerPredictorLSTM(nn.Module):
     Variation of InitLSTM.
     InitLSTM is somewhat broken, because it assumes that the initializer
     receives input_dim + output_dim as input but this might actually differ
-    for some models.
+    for some models_basic.
     """
 
     def __init__(

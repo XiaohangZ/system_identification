@@ -131,7 +131,7 @@ class DeepSysIdCommandLineInterface:
         self.session_parser.set_defaults(func=session)
 
         self.download_parser = self.subparsers.add_parser(
-            name='download', help='Download and prepare datasets.'
+            name='download', help='Download and prepare data_generation.'
         )
         self.download_parser.set_defaults(
             func=lambda args: self.download_parser.print_help()

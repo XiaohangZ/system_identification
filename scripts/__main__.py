@@ -5,22 +5,13 @@ o_path = os.getcwd()
 sys.path.append(o_path)
 
 from train import *
-
+from dataset.data_load.autopilot.data_loader import *
+from deepsysid.models_basic.nn import *
 
 def main() -> None:
 
-    #TrainData = autopilot_dataset().get_data(T=3200, seqLength=10, model = 'Train')
-    train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=10,shuffle=False )
-
-    #ValData = autopilot_dataset().get_data(T=1600, seqLength=10, model = 'Validation')
-    val_loader = torch.utils.data.DataLoader(dataset=ValData,batch_size=10,shuffle=False)
-
-
-    #TestData = autopilot_dataset().get_data(T=1600, seqLength=10, model ='Test')
-    test_loader = torch.utils.data.DataLoader(dataset=TestData,batch_size=10,shuffle=False)
-
     learning_rate = .001
-    num_epochs = 50
+    num_epochs = 128
     optimizer = torch.optim.Adam(FC().parameters(), lr=learning_rate)
 
     model = FC()

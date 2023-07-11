@@ -12,13 +12,13 @@ class IndexOfAgreementMetricConfig(BaseMetricConfig):
 
 class IndexOfAgreementMetric(BaseMetric):
     """
-    Willmott, C.J. (1981). On the validation of models.
+    Willmott, C.J. (1981). On the validation of models_basic.
     Physical Geography, 2(2), 184–194.
 
     Willmott, C.J., Ackleson, S.G., Davis, R.E., Feddema,
     J.J., Klink, K.M., Legates, D.R., O’Donnell, J., and
     Rowe, C.M. (1985). Statistics for the evaluation and
-    comparison of models. Journal of Geophysical Research:
+    comparison of models_basic. Journal of Geophysical Research:
     Oceans, 90(C5), 8995–9005.
     """
 
@@ -63,7 +63,7 @@ class RefinedIndexOfAgreementMetric(BaseMetric):
     Environmental Modelling & Software 73: 167–174.
 
     Calculation from
-    Li J (2017) Assessing the accuracy of predictive models for numerical
+    Li J (2017) Assessing the accuracy of predictive models_basic for numerical
     data: Not r nor r2, why not? Then what? PLoS ONE 12(8): e0183250.
     https://doi.org/10.1371/journal.pone.0183250
     """
@@ -89,7 +89,7 @@ class RefinedIndexOfAgreementMetric(BaseMetric):
 class FitRatioMetric(BaseMetric):
     """
     Also called Variance Explained by
-    Li J (2017) Assessing the accuracy of predictive models for
+    Li J (2017) Assessing the accuracy of predictive models_basic for
     numerical data: Not r nor r2, why not? Then what? PLoS ONE 12(8):
     e0183250. https://doi.org/10.1371/journal.pone.0183250
     """
@@ -114,7 +114,7 @@ class FitRatioMetric(BaseMetric):
 class EfficiencyMetric(BaseMetric):
     """
     Nash, J. and Sutcliffe, J. (1970). River flow forecasting
-    through conceptual models part I - a discussion of
+    through conceptual models_basic part I - a discussion of
     principles. Journal of Hydrology, 10(3), 282–290.
 
     Legates, D.R. and McCabe, G.J. (1999). Evaluating the use of

@@ -68,14 +68,14 @@ class ExperimentSessionManager(object):
 
         if session_action == SessionAction.TEST_BEST:
             if session_report is None:
-                raise ValueError('Cannot Test Best models without session report.')
+                raise ValueError('Cannot Test Best models_basic without session report.')
             else:
                 session_report = self._validate_session_report(session_report)
                 if len(session_report.unfinished_models) > 0:
                     raise ValueError(
-                        'Found following unfinished models in session report. '
-                        'Cannot test best performing models '
-                        'while not all models are validated:'
+                        'Found following unfinished models_basic in session report. '
+                        'Cannot test best performing models_basic '
+                        'while not all models_basic are validated:'
                         f'{", ".join(session_report.unfinished_models)}.'
                     )
 
@@ -106,8 +106,8 @@ class ExperimentSessionManager(object):
         self, callback: Callable[[ExperimentSessionReport], None]
     ) -> ExperimentSessionReport:
         logger.info(
-            f'Found {len(self.session_report.unfinished_models)} unfinished models '
-            f'and {len(self.session_report.validated_models)} validated models.'
+            f'Found {len(self.session_report.unfinished_models)} unfinished models_basic '
+            f'and {len(self.session_report.validated_models)} validated models_basic.'
         )
         unfinished_models = self.session_report.unfinished_models.copy()
         for model_name in unfinished_models:
@@ -161,7 +161,7 @@ class ExperimentSessionManager(object):
             (
                 model_class,
                 min(
-                    # Iterate over all models with matching class
+                    # Iterate over all models_basic with matching class
                     # to select model with the lowest score.
                     (
                         (model_name, model2score[model_name])
@@ -177,7 +177,7 @@ class ExperimentSessionManager(object):
             (
                 base_name,
                 min(
-                    # Iterate over all models with matching base name
+                    # Iterate over all models_basic with matching base name
                     # to select model with the lowest score.
                     (
                         (model_name, model2score[model_name])
@@ -199,7 +199,7 @@ class ExperimentSessionManager(object):
         untested_models = models_to_test.difference(tested_models)
         logger.info(
             f'{len(untested_models)} out of {len(models_to_test)} '
-            f'models left to be tested.'
+            f'models_basic left to be tested.'
         )
 
         self.session_report = self.session_report.copy(deep=True)
@@ -348,14 +348,14 @@ class ExperimentSessionManager(object):
 
         if len(difference.validated_missing_from_configuration) > 0:
             raise ValueError(
-                'Found following validated models in session report '
+                'Found following validated models_basic in session report '
                 'without match in configuration: '
                 f'{", ".join(difference.validated_missing_from_configuration)}.'
             )
 
         if len(difference.unfinished_missing_from_configuration) > 0:
             logger.info(
-                'Following unfinished models in session report '
+                'Following unfinished models_basic in session report '
                 'have no match in configuration. '
                 f'Removing from session: '
                 f'{", ".join(difference.unfinished_missing_from_configuration)}.'
@@ -371,7 +371,7 @@ class ExperimentSessionManager(object):
 
         if len(difference.new_to_configuration) > 0:
             logger.info(
-                'Following models have been added to the configuration since last time.'
+                'Following models_basic have been added to the configuration since last time.'
                 f'Adding to session: {", ".join(difference.new_to_configuration)}.'
             )
             new_progress_report.unfinished_models = (

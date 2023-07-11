@@ -140,22 +140,22 @@ class autopilot_dataset:
         df1 = pd.DataFrame(data = data_list,
         columns=['U', 'delta', 'r'])
         if model == 'Train':
-            df1.to_csv('DATASET_DIRECTORY/processed/train/train.csv',index=True)
+            df1.to_csv('dataset/DATASET_DIRECTORY/processed/train/train.csv',index=True)
         if model == 'Validation':
-            df1.to_csv('DATASET_DIRECTORY/processed/validation/validation.csv',index=True)
+            df1.to_csv('dataset/DATASET_DIRECTORY/processed/validation/validation.csv',index=True)
         if model == 'Test':
-            df1.to_csv('DATASET_DIRECTORY/processed/test/test.csv',index=True)
+            df1.to_csv('dataset/DATASET_DIRECTORY/processed/test/test.csv',index=True)
                  
         return torch_dataset
     
-TrainData = autopilot_dataset().get_data(T=3200, seqLength=10, model = 'Train')
+TrainData = autopilot_dataset().get_data(T=32000, seqLength=40, model = 'Train')
 # train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=10,shuffle=False)
 
-ValData = autopilot_dataset().get_data(T=1600, seqLength=10, model = 'Validation')
+ValData = autopilot_dataset().get_data(T=16000, seqLength=40, model = 'Validation')
 # val_loader = torch.utils.data.DataLoader(dataset=ValData,batch_size=10,shuffle=False)
 
 
-TestData = autopilot_dataset().get_data(T=1600, seqLength=10, model ='Test')
+TestData = autopilot_dataset().get_data(T=16000, seqLength=40, model ='Test')
 # test_loader = torch.utils.data.DataLoader(dataset=TestData,batch_size=10,shuffle=False)
 
 # for i, (input, output) in enumerate(train_loader):

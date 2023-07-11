@@ -24,7 +24,7 @@ class SwitchingLSTMExplainer(BaseExplainer):
     ) -> Explanation:
         if not isinstance(model, SwitchingLSTMBaseModel):
             raise ExplainerNotImplementedForModel(
-                'SwitchingLSTMExplainer can only explain models '
+                'SwitchingLSTMExplainer can only explain models_basic '
                 'that subclass SwitchingLSTMBaseModel.'
             )
 
