@@ -1,6 +1,3 @@
-import torch
-import torch.nn as nn
-import numpy as np
 import sys
 import os
 
@@ -8,7 +5,7 @@ o_path = os.getcwd()
 sys.path.append(o_path)
 
 from dataset.data_load.autopilot.data_loader import *
-from deepsysid.models_basic.nn import *
+from deepsysid.models.lstm import *
 from utils import * 
 from metrics import * 
 from config import device
@@ -28,7 +25,7 @@ def train(model = None, SavingName=None, train_loader = None, val_loader=None, o
             
             loss_function = nn.MSELoss()
             #loss_function = nn.CrossEntropyLoss()
-            loss = loss_function(labels.to(torch.float32), outputs.to(torch.float32))
+            loss = loss_function(labels.to(torch.float64), outputs.to(torch.float64))
 
             # Backward and optimize
             optimizer.zero_grad()
@@ -56,7 +53,7 @@ def train(model = None, SavingName=None, train_loader = None, val_loader=None, o
                         gt.extend(labelsV.cpu().numpy()[0])
                         pred.extend(outputsV[0].round().cpu().numpy())
                     
-                    gt = np.asarray(gt,np.float32)
+                    gt = np.asarray(gt,np.float64)
                     pred = np.asarray(pred)
                     #print('Val Accuracy of the model on the {} epoch: {} %'.format(epoch,accuracy(pred,gt)))
 
@@ -118,8 +115,8 @@ def test(model = None,SavingName=None, test_loader=None):
 
 
     
-#RCS= FCLSTM()
-RCS= FC()
+RCS= FCLSTM()
+#RCS= FC()
 
 learning_rate = .001
 num_epochs = 125

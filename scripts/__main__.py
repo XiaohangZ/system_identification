@@ -6,7 +6,7 @@ sys.path.append(o_path)
 
 from train import *
 from dataset.data_load.autopilot.data_loader import *
-from deepsysid.models_basic.nn import *
+from deepsysid.models.nn import *
 
 def main() -> None:
 

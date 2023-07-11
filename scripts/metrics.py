@@ -9,7 +9,7 @@ def accuracy(predictions,labels):
     # print("mean_squared_error:", mean_squared_error(predictions, labels))
     # print("rmse:", sqrt(mean_squared_error(predictions, labels)))
     # print("r2 score:", r2_score(predictions, labels))
-    return mean_squared_error(predictions, labels)
+    return mean_squared_error(predictions, labels)*100
 
 
 # b = np.array( [ (1.5,2), (4,5), (6,7) ]  )
