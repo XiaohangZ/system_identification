@@ -102,7 +102,7 @@ class autopilot_dataset:
         data_list = data_tensor.tolist()
         df1 = pd.DataFrame(data = data_list,
         columns=['U', 'delta', 'r'])
-        df1.to_csv('datasets/autopilot/result.csv',index=True)
+        df1.to_csv('data_generation/autopilot/result.csv',index=True)
 
           
         return torch_dataset
