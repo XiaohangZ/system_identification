@@ -40,7 +40,7 @@ def train(model = None, SavingName=None, train_loader = None, val_loader=None, o
                       .format(epoch + 1, num_epochs, i + 1, total_step, loss.item()))
             
             
-            if epoch%10 == 0:
+            if epoch%25 == 0:
                 with torch.no_grad():
                     model.eval()     
                     
@@ -61,19 +61,20 @@ def train(model = None, SavingName=None, train_loader = None, val_loader=None, o
                     #print('Val Accuracy of the model on the {} epoch: {} %'.format(epoch,accuracy(pred,gt)))
 
                     accuracy_mean.append(accuracy(pred,gt))
-                    accuracy_10 = accuracy_mean[epoch:]                   
+                    accuracy_25 = accuracy_mean[epoch:]                   
                     #print(accuracy_10)
 
                     
-                    if len(accuracy_10)==10:
-                      a=0
-                      for i in accuracy_10:
-                        a=i+a
+                    if len(accuracy_25) == 25:
+                      a = 0
+                      for i in accuracy_25:
+                        a = i + a
                       print('Mean Val Accuracy of the model on the {} epoch: {} %'.format(epoch,a/len(train_loader)))
                       epoch_change.append(epoch)
                       accuracy_change.append(a/len(train_loader))
                       print(epoch_change,accuracy_change)
-                      if len(accuracy_change)==(num_epochs/10):
+
+                      if len(accuracy_change)==(num_epochs/25):
                         # learning process visualization
                         plt.title('Training Accuracy')
                         plt.ylabel('Accuracy')
@@ -121,7 +122,7 @@ def test(model = None,SavingName=None, test_loader=None):
 RCS= FC()
 
 learning_rate = .001
-num_epochs = 128
+num_epochs = 125
 optimizer = torch.optim.Adam(RCS.parameters(), lr=learning_rate)
 
 train(model = RCS, SavingName='./checkpoints/nn.ckpt', train_loader = train_loader, val_loader=val_loader, optimizer = optimizer)
