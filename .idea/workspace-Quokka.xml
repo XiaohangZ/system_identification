@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="41a8046a-6ade-4d8a-a8c7-0be7552197a9" name="Changes" comment="up">
+      <change beforePath="$PROJECT_DIR$/RESULT_DIRECTORY/session.log" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2QAzzpSZR9MKPHukR2sVdpZ0XmE" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/OneDrive/Captures/Masterarbeit/code_of_masterarbeit/sample/deepsysid-master",
+    "settings.editor.selected.configurable": "terminal"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\dataset\DATASET_DIRECTORY\processed" />
+      <recent name="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\dataset\DATASET_DIRECTORY" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship" />
+      <recent name="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\deepsysid\models" />
+      <recent name="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\dataset\data_load\autopilot" />
+      <recent name="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\dataset\data_load" />
+      <recent name="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\dataset" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.Start_train">
+    <configuration name="Start_train" type="PythonConfigurationType" factoryName="Python">
+      <module name="system_identification_of_ship" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\scripts\__main__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="load_data" type="PythonConfigurationType" factoryName="Python">
+      <module name="system_identification_of_ship" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\Anaconda3\envs\pytorch_gpu\python.exe" />
+      <option name="SDK_NAME" value="Python 3.10 (pytorch_gpu)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/.." />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.load_data" />
+      <item itemvalue="Python.Start_train" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="41a8046a-6ade-4d8a-a8c7-0be7552197a9" name="Changes" comment="" />
+      <created>1684811439677</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1684811439677</updated>
+    </task>
+    <task id="LOCAL-00001" summary="up">
+      <option name="closed" value="true" />
+      <created>1689112863725</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1689112863725</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TerminalProjectNonSharedOptionsProvider">
+    <envs>
+      <env key="CONFIGURATION" value="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\configurations\config-1dof.json" />
+      <env key="DATASET_DIRECTORY" value="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\dataset\DATASET_DIRECTORY" />
+      <env key="MODELS_DIRECTORY" value="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\deepsysid\models" />
+      <env key="RESULT_DIRECTORY" value="D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\results" />
+    </envs>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="up" />
+    <option name="LAST_COMMIT_MESSAGE" value="up" />
+  </component>
+</project>
