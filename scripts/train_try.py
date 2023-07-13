@@ -1,8 +1,10 @@
-import sys
 import os
+import sys
 
 o_path = os.getcwd()
 sys.path.append(o_path)
+
+import matplotlib.pyplot as plt
 
 from dataset.data_load.autopilot.data_loader import *
 from deepsysid.models.lstm import *

@@ -1,12 +1,12 @@
 import os
-# import sys
+import sys
 import torch
 import torch.nn as nn
 import matplotlib
 import matplotlib.pyplot as plt 
 
 o_path = os.getcwd()
-# sys.path.append(o_path)
+sys.path.append(o_path)
 
 from metrics import *
 from config import device
@@ -60,7 +60,7 @@ def train(model = None,SavingName=None, train_loader = None, val_loader=None, nu
                     
                     gt = np.asarray(gt,np.float32)
                     pred = np.asarray(pred)
-                    # print('Val Accuracy of the model on the {} epoch: {} %'.format(epoch,accuracy(pred,gt)))
+                    # print('MSE of the model on the {} epoch: {} %'.format(epoch,accuracy(pred,gt)))
 
                     accuracy_mean.append(accuracy(pred,gt))
                     accuracy_25 = accuracy_mean[epoch:]                   
@@ -71,7 +71,7 @@ def train(model = None,SavingName=None, train_loader = None, val_loader=None, nu
                       a = 0
                       for i in accuracy_25:
                         a = i + a
-                      print('Mean Val Accuracy of the model on the {} epoch: {} %'.format(epoch,a/len(train_loader)))
+                      print('Mean MSE of the model on the {} epoch: {} %'.format(epoch,a/len(train_loader)))
                       epoch_change.append(epoch)
                       accuracy_change.append(a/len(train_loader))
                       print(epoch_change,accuracy_change)
@@ -115,4 +115,4 @@ def test(model = None,SavingName=None, test_loader=None):
         gt = np.asarray(gt,np.float32)
         pred = np.asarray(pred)
 
-        print('Test Accuracy of the model test samples: {} %'.format(accuracy(pred,gt)))
+        print('MSE of the model test samples: {} %'.format(accuracy(pred,gt)))

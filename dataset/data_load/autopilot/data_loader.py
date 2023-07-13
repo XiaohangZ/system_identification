@@ -85,6 +85,8 @@ class DataLoader:
 
         return torch_dataset
 
+
+
 TrainData = DataLoader().get_data(dataDir='dataset/DATASET_DIRECTORY/processed/', type='train',
                  parameter_exp=['U', 'delta', 'r'],
                  transform=None, seqLength=80)
