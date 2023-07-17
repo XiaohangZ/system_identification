@@ -219,5 +219,5 @@ dataset_1 = autopilot_dataset()
 # for i, (input, output) in enumerate(test_loader):
 #     print(input.shape,output.shape)
 
-dataset_1.generate_train_data(model = 'train')
-dataset_1.generate_val_data(model = 'validation')
+# dataset_1.generate_train_data(model = 'train')
+# dataset_1.generate_val_data(model = 'validation')

@@ -124,5 +124,5 @@ learning_rate = .001
 num_epochs = 125
 optimizer = torch.optim.Adam(RCS.parameters(), lr=learning_rate)
 
-train(model = RCS, SavingName='./checkpoints/nn.ckpt', train_loader = train_loader, val_loader=val_loader, optimizer = optimizer)
-test(model = RCS, SavingName='./checkpoints/nn.ckpt', test_loader=test_loader)
+train(model = RCS, SavingName='./checkpoints/lstm_basic.ckpt', train_loader = train_loader, val_loader=val_loader, optimizer = optimizer)
+test(model = RCS, SavingName='./checkpoints/lstm_basic.ckpt', test_loader=test_loader)
