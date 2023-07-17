@@ -78,8 +78,8 @@ def train(model = None,SavingName=None, train_loader = None, val_loader=None, nu
 
                       if len(accuracy_change)==(num_epochs/25):
                         # learning process visualization
-                        plt.title('Training Accuracy')
-                        plt.ylabel('Accuracy')
+                        plt.title('Training MSE')
+                        plt.ylabel('MSE')
                         plt.xlabel('Epoch')
                         plt.grid(True)
                         plt.autoscale(axis='x', tight=True)

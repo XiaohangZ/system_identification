@@ -19,7 +19,7 @@ class DataLoader:
                  transform=None, seqLength=None):
         print(dataDir + type + '/' + type + ".csv")
 
-        csvFiles = dataDir + type + '/' + type+ ".csv"
+        csvFiles = dataDir + type + '/' + type + ".csv"
 
         # with open(csvFiles, encoding='utf-8-sig') as file:
         #     row = csv.reader(file)
@@ -103,7 +103,7 @@ TestData = DataLoader().get_data(dataDir='dataset/DATASET_DIRECTORY/processed/',
 test_loader  = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
 
 
-
+#
 # for i, (input, output) in enumerate(train_loader):
 #     print(input.shape,output.shape)
 # for i, (input, output) in enumerate(val_loader):

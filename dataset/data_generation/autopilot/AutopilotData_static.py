@@ -6,6 +6,11 @@ from _operator import truediv
 import torch.utils.data as Data
 import numpy as np
 import pandas as pd
+import sys
+import os
+
+o_path = os.getcwd()
+sys.path.append(o_path)
 
 # def random_static_input(
 #     N: int,
@@ -33,7 +38,7 @@ class autopilot_dataset:
     def __init__(self) -> None:
         pass
 
-    def get_data(self, T, seqLength = None, model = 'Train'):
+    def generate_data(self, T, seqLength = None, model = 'Train'):
         #define initial state
         self.model = model
         if model == 'Train':
@@ -109,18 +114,18 @@ class autopilot_dataset:
 
 
         if seqLength is not None:
-            temp = [] 
+            temp = []
             temp2 = []
             for i in range(round(truediv(len(input_list),seqLength))):
                 if (len(input_list) - i*seqLength) < seqLength:
-                    pass 
+                    pass
                      #right = len(t)
 
-                else: 
+                else:
                     right = (i+1)*seqLength
                     temp.append(input_list[i*seqLength:right])
                     temp2.append(output_list[i*seqLength:right])
-                                
+
             input_seq = temp
             output_seq = temp2
             #print(input_seq, len(input_seq), output_seq, len(output_seq))
@@ -129,8 +134,8 @@ class autopilot_dataset:
             #print(input_tensor.shape, output_tensor.shape)
 
             torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
-            
-        else: 
+
+        else:
             input_tensor = torch.tensor(input_list)
             output_tensor = torch.tensor(output_list)
             torch_dataset = Data.TensorDataset(input_tensor, output_tensor)
@@ -140,25 +145,68 @@ class autopilot_dataset:
         df1 = pd.DataFrame(data = data_list,
         columns=['U', 'delta', 'r'])
         if model == 'Train':
-            df1.to_csv('dataset/DATASET_DIRECTORY/processed/train/train_10.csv',index=True)
+            df1.to_csv('dataset/DATASET_DIRECTORY/processed/train/train_10.csv',index=False)
         if model == 'Validation':
-            df1.to_csv('dataset/DATASET_DIRECTORY/processed/validation/validation_10.csv',index=True)
+            df1.to_csv('dataset/DATASET_DIRECTORY/processed/validation/validation_10.csv',index=False)
         if model == 'Test':
-            df1.to_csv('dataset/DATASET_DIRECTORY/processed/test/test.csv',index=True)
+            df1.to_csv('dataset/DATASET_DIRECTORY/processed/test/test.csv',index=False)
                  
         return torch_dataset
 
+    def generate_train_data(self, model = 'train'):
+        data_dir = "dataset/DATASET_DIRECTORY/processed/" + model
+        filenames = list()
+        filenames += [model + '_2.csv', model + '_3.csv', model + '_4.csv']
+        filenames += [model + '_5.csv', model + '_6.csv', model + '_7.csv', model + '_8.csv']
+        filenames += [model + '_9.csv', model + '_10.csv']
+        X = []
+        column = pd.read_csv('dataset/DATASET_DIRECTORY/processed/train/train_1.csv', header=0, nrows=3201, delim_whitespace=False)
+        X.append(column)
+        for filename in filenames:
+            # load data
+            data_path = os.path.join(data_dir, filename)
+            data = pd.read_csv(data_path, header=0, skiprows=0, nrows=3200, delim_whitespace=False)
+            X.append(data)
+        all_data = pd.concat(X, axis=0)
+        print(all_data)
+        all_data.to_csv('dataset/DATASET_DIRECTORY/processed/train/train.csv', index=False, columns=None)
 
-TrainData = autopilot_dataset().get_data(T=3200, seqLength=40, model = 'Train')
+
+        return
+
+    def generate_val_data(self, model = 'validation'):
+        data_dir = "dataset/DATASET_DIRECTORY/processed/" + model
+        filenames = list()
+        filenames += [model + '_2.csv', model + '_3.csv', model + '_4.csv']
+        filenames += [model + '_5.csv', model + '_6.csv', model + '_7.csv', model + '_8.csv']
+        filenames += [model + '_9.csv', model + '_10.csv']
+        X = []
+        column = pd.read_csv('dataset/DATASET_DIRECTORY/processed/validation/validation_1.csv', header=0, nrows=1601, delim_whitespace=False)
+        X.append(column)
+        for filename in filenames:
+            # load data
+            data_path = os.path.join(data_dir, filename)
+            data = pd.read_csv(data_path, header=0, skiprows = 0, nrows=1600, delim_whitespace=False)
+            X.append(data)
+        all_data = pd.concat(X, axis=0)
+        print(all_data)
+        all_data.to_csv('dataset/DATASET_DIRECTORY/processed/validation/validation.csv', index=False, index_label = 'id')
+
+        return
+
+
+dataset_1 = autopilot_dataset()
+
+
+# TrainData = dataset_1.generate_data(T=3200, seqLength=40, model = 'Train')
 # train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=10,shuffle=False)
 
-ValData = autopilot_dataset().get_data(T=1600, seqLength=40, model = 'Validation')
+# ValData = dataset_1.generate_data(T=1600, seqLength=40, model = 'Validation')
 # val_loader = torch.utils.data.DataLoader(dataset=ValData,batch_size=10,shuffle=False)
 
 
-TestData = autopilot_dataset().get_data(T=1600, seqLength=40, model ='Test')
+# TestData = dataset_1.generate_data(T=1600, seqLength=40, model ='Test')
 # test_loader = torch.utils.data.DataLoader(dataset=TestData,batch_size=10,shuffle=False)
-
 
 
 
@@ -170,3 +218,6 @@ TestData = autopilot_dataset().get_data(T=1600, seqLength=40, model ='Test')
 
 # for i, (input, output) in enumerate(test_loader):
 #     print(input.shape,output.shape)
+
+dataset_1.generate_train_data(model = 'train')
+dataset_1.generate_val_data(model = 'validation')
