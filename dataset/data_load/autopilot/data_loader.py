@@ -14,7 +14,7 @@ class DataLoader:
     def __init__(self) -> None:
         pass
 
-    def get_data(self, dataDir='dataset/DATASET_DIRECTORY/processed/', type='train',
+    def get_data(self, dataDir='dataset/data_total/processed/', type='train',
                  parameter_exp=['U', 'delta', 'r'],
                  transform=None, seqLength=None):
         print(dataDir + type + '/' + type + ".csv")
@@ -87,12 +87,12 @@ class DataLoader:
 
 
 
-TrainData = DataLoader().get_data(dataDir='dataset/DATASET_DIRECTORY/processed/', type='train',
+TrainData = DataLoader().get_data(dataDir='dataset/data_total/processed/', type='train',
                  parameter_exp=['U', 'delta', 'r'],
                  transform=None, seqLength=80)
 train_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)
 
-ValData = DataLoader().get_data(dataDir='dataset/DATASET_DIRECTORY/processed/', type='validation',
+ValData = DataLoader().get_data(dataDir='dataset/data_total/processed/', type='validation',
                  parameter_exp=['U', 'delta', 'r'],
                  transform=None, seqLength=80)
 val_loader = torch.utils.data.DataLoader(dataset=TrainData,batch_size=16,shuffle=False)

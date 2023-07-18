@@ -1,0 +1,1 @@
+{"model_class": "deepsysid.models.linear.LinearLag", "parameters": {"device_name": "cuda", "control_names": ["delta", "U"], "state_names": ["r"], "initial_state_names": ["r"], "time_delta": 1.0, "lag": 5}}

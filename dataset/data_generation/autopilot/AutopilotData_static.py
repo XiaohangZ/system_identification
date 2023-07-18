@@ -169,7 +169,7 @@ class autopilot_dataset:
             X.append(data)
         all_data = pd.concat(X, axis=0)
         print(all_data)
-        all_data.to_csv('dataset/DATASET_DIRECTORY/processed/train/train.csv', index=False, columns=None)
+        all_data.to_csv('dataset/data_total/processed/train/train.csv', index=False, columns=None)
 
 
         return
@@ -190,7 +190,7 @@ class autopilot_dataset:
             X.append(data)
         all_data = pd.concat(X, axis=0)
         print(all_data)
-        all_data.to_csv('dataset/DATASET_DIRECTORY/processed/validation/validation.csv', index=False, index_label = 'id')
+        all_data.to_csv('dataset/data_total/processed/validation/validation.csv', index=False, index_label = 'id')
 
         return
 
