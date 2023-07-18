@@ -10,13 +10,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\dataset\DATASET_DIRECTORY\processed\train\train.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\dataset\DATASET_DIRECTORY\processed\train\train_1.csv">
           <value>
             <Attribute>
@@ -39,13 +32,6 @@
           </value>
         </entry>
         <entry key="\dataset\DATASET_DIRECTORY\processed\train\train_8.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\dataset\DATASET_DIRECTORY\processed\validation\validation.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
