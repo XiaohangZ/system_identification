@@ -50,8 +50,8 @@ def train(model = None,SavingName=None, train_loader = None, val_loader=None, nu
                     
                     for signalsV, labelsV in val_loader:
                         
-                        labelsV = labelsV.to(device)
-                        signalsV = signalsV.to(device)
+                        labelsV = labelsV.to('cpu')
+                        signalsV = signalsV.to('cpu')
                         
                         outputsV = model(signalsV)
                         
@@ -105,7 +105,7 @@ def test(model = None,SavingName=None, test_loader=None):
         
         for signals, labels in test_loader:
             
-            signals = signals.to(device)
+            signals = signals.to('cpu')
             outputs = model(signals)
             outputs = outputs.round().cpu().numpy()
              

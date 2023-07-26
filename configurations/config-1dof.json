@@ -29,9 +29,16 @@
       "model_class": "deepsysid.models.linear.LinearLag",
       "static_parameters": {},
       "flexible_parameters": {
-        "lag": [5, 15, 30, 45, 60]
+        "lag": [
+          5,
+          15,
+          30,
+          45,
+          60
+        ]
       }
-    }, {
+    },
+    {
       "model_base_name": "LSTM",
       "model_class": "deepsysid.models.recurrent.LSTMInitModel",
       "static_parameters": {
@@ -44,11 +51,22 @@
         "loss": "mse"
       },
       "flexible_parameters": {
-        "learning_rate": [0.001, 0.0025],
-        "recurrent_dim": [16, 32, 64],
-        "num_recurrent_layers": [1, 2]
+        "learning_rate": [
+          0.001,
+          0.0025
+        ],
+        "recurrent_dim": [
+          16,
+          32,
+          64
+        ],
+        "num_recurrent_layers": [
+          1,
+          2
+        ]
       }
-    }, {
+    },
+    {
       "model_base_name": "PBRL-Linear",
       "model_class": "deepsysid.models.hybrid.bounded_residual.HybridLinearModel",
       "static_parameters": {
@@ -62,11 +80,20 @@
         "loss": "mse"
       },
       "flexible_parameters": {
-        "learning_rate": [0.001, 0.0025],
-        "recurrent_dim": [16, 32, 64],
-        "num_recurrent_layers": [1, 2]
+        "learning_rate": [
+          0.001,
+          0.0025
+        ],
+        "recurrent_dim": [
+          16,
+          32,
+          64
+        ],
+        "num_recurrent_layers": [
+          1,
+          2
+        ]
       }
     }
-
   ]
 }
