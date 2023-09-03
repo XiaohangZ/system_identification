@@ -25,7 +25,7 @@ def show_curve(json_file):
         plt.plot(i_list, nrmse_values_list)
         plt.show()
 
-# result1 = show_curve(r'D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\results\repeat-1\LinearLag-5\scores-test-w_60-h_60.json')
+result1 = show_curve(r'D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\results\repeat-1\LinearLag-5\scores-test-w_60-h_60.json')
 
 # def show_histogram():
 
@@ -61,4 +61,4 @@ def traverse_folder_with_json(folder_path, json):
 
 
 
-traverse_folder_with_json(r'D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\results\repeat-1', json)
+# traverse_folder_with_json(r'D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\results\repeat-1', json)
