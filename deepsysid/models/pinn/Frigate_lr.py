@@ -11,7 +11,7 @@ from numpy.typing import NDArray
 from torch import nn, optim
 from torch.nn.functional import mse_loss
 from torch.utils import data
-from .pinn import PINNNet,PILSTMNet, pinn_loss, RecurrentPINNDataset
+from .pinn_lr import PINNNet, PILSTMNet, RecurrentPINNDataset
 
 from ...networks import loss, rnn
 from ...tracker.base import BaseEventTracker
@@ -100,7 +100,7 @@ class FrigatePINNModel(base.DynamicIdentificationModel, abc.ABC):
                 )
                 delta = signals[:, :, 1].unsqueeze(dim=2)
                 U = signals[:, :, 0].unsqueeze(dim=2)
-                MSE_R = pinn_loss(labels, state_pred, delta, U, state_pred)
+                MSE_R = self.model.pinn_loss(labels, state_pred, delta, U, state_pred)
                 batch_loss = MSE_r + self.alpha * MSE_R
                 total_loss += batch_loss.item()
                 batch_loss.backward()
@@ -114,6 +114,10 @@ class FrigatePINNModel(base.DynamicIdentificationModel, abc.ABC):
             logger.info(
                 f'Epoch {i + 1}/{self.epochs} - Epoch Loss: {total_loss} - Avg loss: {total_loss / data_len} - MSE: {mse} - RMSE {rmse}')
             epoch_losses.append([i, total_loss])
+
+        print(f'K_delta:{self.model.K_delta}, T_U_dotr:{self.model.T_U_dotr}, T_U2_dotr:{self.model.T_U2_dotr}, T_U3_dotr:{self.model.T_U3_dotr}, '
+              f'K_delta:{self.model.K_delta}, K_U_delta:{self.model.K_U_delta}, K_U2_delta:{self.model.K_U2_delta}, K_U3_delta:{self.model.K_U3_delta}, '
+              f'N_r:{self.model.N_r}, N_r3:{self.model.N_r3}, N_U_r3:{self.model.N_U_r3}, N_U2_r3:{self.model.N_U2_r3}, N_U3_r3:{self.model.N_U3_r3}')
 
         return dict(epoch_loss=np.array(epoch_losses, dtype=np.float64))
 
@@ -276,7 +280,7 @@ class FrigatePILSTMModel(base.DynamicIdentificationModel, abc.ABC):
                 )
                 delta = signals[:, :, 1].unsqueeze(dim=2)
                 U = signals[:, :, 0].unsqueeze(dim=2)
-                MSE_R = pinn_loss(labels, state_pred, delta, U, state_pred)
+                MSE_R = self.model.pinn_loss(labels, state_pred, delta, U, state_pred)
                 batch_loss = MSE_r + MSE_R
                 total_loss += batch_loss.item()
                 batch_loss.backward()
