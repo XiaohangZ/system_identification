@@ -105,12 +105,11 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     ap = abs(p)
 
     #Total Mass Matrix
-    M = np.array([(m-Xudot),0,0,0,0,0],
-                 [0,(m-Yvdot),-(m*zG+Ypdot),(m*xG-Yrdot),0,0]
-                 [0,-(m*zG+Kvdot),(Ixx-Kpdot),-Krdot,0,0]
-                 [0,(m*xG-Nvdot),-Npdot,(Izz-Nrdot),0,0]
-                 [0,0,0,0,1,0]
-                 [0,0,0,0,0,1])
+    M = torch.from_numpy(np.array([(m-Xudot), 0, 0, 0],
+                                  [0, (m-Yvdot), -(m*zG+Ypdot), (m*xG-Yrdot)],
+                                  [0, -(m*zG+Kvdot), (Ixx-Kpdot), -Krdot],
+                                  [0, (m*xG-Nvdot), -Npdot, (Izz-Nrdot)]))
+
 
     # Hydrodynamic forces without added mass terms (considered in the M matrix)
     Xh = Xuau * u * au + Xvr * v * r
@@ -142,21 +141,12 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     F4 = Kh + Kc + Ke
     F6 = Nh + Nc + Ne
 
-    force = np.array([F1,F2,F4,F6])
-    M_1 = np.linalg.inv(M)
-    F = np.array([F1,F2,F4,F6,p,r])
+    F_pred = torch.from_numpy(np.array([F1,F2,F4,F6]))
     sampling_time = 1
-    acceleration_pred = np.dot(F, M_1)
-    u_dot = acceleration_pred[0]
-    v_dot = (acceleration_pred[1]^2 + acceleration_pred[2]^2 + acceleration_pred[3]^2)**0.5
-    p_dot = acceleration_pred[4]
-    r_dot = acceleration_pred[5]
-    acceleration_pred = np.array([u_dot, v_dot, p_dot, r_dot])
-    acceleration_true = np.array([(u-u_prev)/sampling_time, (v-v_prev)/sampling_time, (p-p_prev)/sampling_time, (r-r_prev)/sampling_time])
-    loss = acceleration_true - acceleration_pred
-    MSE_R = 0
-    for l in loss:
-        MSE_R = MSE_R + l^2
+    acceleration_true = torch.from_numpy(np.array([(u-u_prev)/sampling_time, (v-v_prev)/sampling_time, (p-p_prev)/sampling_time, (r-r_prev)/sampling_time]))
+    F_true = torch.mm(acceleration_true, M, out=None)
+    force_residual = F_true - F_pred
+    MSE_R = torch.sum(force_residual * force_residual)
     return MSE_R
 
 class RecurrentPINNDataset(data.Dataset[Dict[str, NDArray[np.float64]]]):

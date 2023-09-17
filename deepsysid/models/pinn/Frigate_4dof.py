@@ -11,7 +11,7 @@ from numpy.typing import NDArray
 from torch import nn, optim
 from torch.nn.functional import mse_loss
 from torch.utils import data
-from .pinn_4dof import PINNNet, pinn_loss, RecurrentPINNDataset
+from .pinn_4dof import PINNNet,pinn_loss_4dof , RecurrentPINNDataset
 
 from ...networks import loss, rnn
 from ...tracker.base import BaseEventTracker
@@ -21,7 +21,7 @@ from ..base import DynamicIdentificationModelConfig
 logger = logging.getLogger(__name__)
 
 
-class FrigatePINNModelConfig(DynamicIdentificationModelConfig):
+class FrigatePINNModel_4dofConfig(DynamicIdentificationModelConfig):
     inputNode: int
     hiddenNode: int
     outputNode: int
@@ -31,10 +31,10 @@ class FrigatePINNModelConfig(DynamicIdentificationModelConfig):
     epochs: int
 
 
-class FrigatePINNModel(base.DynamicIdentificationModel, abc.ABC):
-    CONFIG = FrigatePINNModelConfig
+class FrigatePINNModel_4dof(base.DynamicIdentificationModel, abc.ABC):
+    CONFIG = FrigatePINNModel_4dofConfig
 
-    def __init__(self, config: FrigatePINNModelConfig):
+    def __init__(self, config: FrigatePINNModel_4dofConfig):
         super().__init__(config)
         self.device_name = config.device_name
         self.device = torch.device(self.device_name)
@@ -96,9 +96,8 @@ class FrigatePINNModel(base.DynamicIdentificationModel, abc.ABC):
                 MSE_r = self.loss_function(
                     state_pred, labels
                 )
-                delta = signals[:, :, 1].unsqueeze(dim=2)
-                U = signals[:, :, 0].unsqueeze(dim=2)
-                MSE_R = pinn_loss(labels, state_pred, delta, U, state_pred)
+                phi = signals[:, :, -1].unsqueeze(dim=2)
+                MSE_R = pinn_loss_4dof(labels, state_pred, phi, state_pred)
                 batch_loss = MSE_r + MSE_R
                 total_loss += batch_loss.item()
                 batch_loss.backward()
