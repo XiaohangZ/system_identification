@@ -97,13 +97,14 @@ class FrigatePINNModel_4dof(base.DynamicIdentificationModel, abc.ABC):
                     state_pred, labels
                 )
                 phi = signals[:, :, -1].unsqueeze(dim=2)
-                MSE_R = pinn_loss_4dof(labels, state_pred, phi, state_pred)
+                # print(labels.shape, state_pred.shape, phi.shape, state_pred.shape)
+                MSE_R = pinn_loss_4dof(labels[:, :, 0], labels[:, :, 1], labels[:, :, 2], labels[:, :, 3], phi[:,:,0], state_pred[:, :, 0], state_pred[:, :, 1], state_pred[:, :, 2], state_pred[:, :, 3])
                 batch_loss = MSE_r + MSE_R
                 total_loss += batch_loss.item()
                 batch_loss.backward()
                 self.optimizer.step()
-            gt = labels.detach().numpy().reshape((-1, 1))
-            pred = state_pred.detach().numpy().reshape((-1, 1))
+            gt = labels.cpu().detach().numpy().reshape((-1, 1))
+            pred = state_pred.cpu().detach().numpy().reshape((-1, 1))
             gt = utils.denormalize(gt, self.state_mean, self.state_std)
             pred = utils.denormalize(pred, self.state_mean, self.state_std)
             mse = mean_squared_error(pred, gt)

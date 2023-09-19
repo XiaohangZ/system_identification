@@ -24,7 +24,17 @@ class PINNNet(nn.Module):
         out3 = self.Linear2(out2)
         return out3
 
+
 def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
+    u = u.detach().cpu().numpy().astype(float)
+    v = v.detach().cpu().numpy().astype(float)
+    p = p.detach().cpu().numpy().astype(float)
+    r = r.detach().cpu().numpy().astype(float)
+    phi = phi.detach().cpu().numpy().astype(float)
+    u_prev = u_prev.detach().cpu().numpy().astype(float)
+    v_prev = v_prev.detach().cpu().numpy().astype(float)
+    p_prev = p_prev.detach().cpu().numpy().astype(float)
+    r_prev = r_prev.detach().cpu().numpy().astype(float)
     # Constant
     rho_water = 1025.0
     g = 9.81
@@ -34,11 +44,12 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     B = 8.6
     D = 2.3
 
-    #Load condition
+    # Load condition
     disp = 355.88
-    m = 365.79 * 10 ^ 3
-    Izz = 3.3818 * 10 ^ 7
-    Ixx = 3.4263 * 10 ^ 6
+    # m = 365.79 * 10 ^ 3
+    m = 365.79 * pow(10, 3)
+    Izz = 3.3818 * pow(10, 7)
+    Ixx = 3.4263 * pow(10, 6)
     gm = 1.0
     LCG = 20.41
     VCG = 3.36
@@ -51,9 +62,9 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     Xvr = 0.33 * m
 
     # Hydrodynamic coefficients in sway equation
-    Yvdot = -1.9022 * 10 ^ 6
-    Ypdot = -0.296 * 10 ^ 6
-    Yrdot = -1.4 * 10 ^ 6
+    Yvdot = -1.9022 * pow(10, 6)
+    Ypdot = -0.296 * pow(10, 6)
+    Yrdot = -1.4 * pow(10, 6)
     Yauv = -11800
     Yur = 131000
     Yvav = -3700
@@ -64,7 +75,7 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     Ybaur = 251000
     Ybuu = -74
 
-    #Hydrodynamic coefficients in roll equation
+    # Hydrodynamic coefficients in roll equation
     Kvdot = 296000
     Kpdot = -674000
     Krdot = 0
@@ -86,7 +97,7 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     # Hydrodynamic coefficients in yaw equation
     Nvdot = 538000
     Npdot = 0
-    Nrdot = -4.3928 * 10 ^ 7
+    Nrdot = -4.3928 * pow(10, 7)
     Nauv = -92000
     Naur = -4710000
     Nvav = 0
@@ -97,41 +108,46 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     Nbuar = -4980000
     Nbuau = -8000
 
-    #Auxiliary variables
+    # Auxiliary variables
     b = phi
     au = abs(u)
     av = abs(v)
     ar = abs(r)
     ap = abs(p)
 
-    #Total Mass Matrix
-    M = torch.from_numpy(np.array([(m-Xudot), 0, 0, 0],
-                                  [0, (m-Yvdot), -(m*zG+Ypdot), (m*xG-Yrdot)],
-                                  [0, -(m*zG+Kvdot), (Ixx-Kpdot), -Krdot],
-                                  [0, (m*xG-Nvdot), -Npdot, (Izz-Nrdot)]))
+    # Total Mass Matrix
+    M = torch.from_numpy(np.array([
+        [(m - Xudot), 0, 0, 0],
+        [0, (m - Yvdot), -(m * zG + Ypdot), (m * xG - Yrdot)],
+        [0, -(m * zG + Kvdot), (Ixx - Kpdot), -Krdot],
+        [0, (m * xG - Nvdot), -Npdot, (Izz - Nrdot)]
+    ]
+    )
 
+    )
 
     # Hydrodynamic forces without added mass terms (considered in the M matrix)
     Xh = Xuau * u * au + Xvr * v * r
-
+    # print("Xh is ", Xh)
     Yh = (Yauv * au * v + Yur * u * r + Yvav * v * av + Yvar * v * ar + Yrav * r * av
-          + Ybauv * b * abs(u * v) + Ybaur * b * abs(u * r) + Ybuu * b * u ^ 2)
+          + Ybauv * b * abs(u * v) + Ybaur * b * abs(u * r) + Ybuu * b * pow(u, 2))
 
     Kh = Kauv * au * v + Kur * u * r + Kvav * v * av + Kvar * v * ar + Krav * r * av
-    + Kbauv * b * abs(u * v) + Kbaur * b * abs(u * r) + Kbuu * b * u ^ 2 + Kaup * au * p
-    + Kpap * p * ap + Kp * p + Kbbb * b ^ 3 - (rho_water * g * gm * disp) * b
+    + Kbauv * b * abs(u * v) + Kbaur * b * abs(u * r) + Kbuu * b * pow(u, 2) + Kaup * au * p
+    + Kpap * p * ap + Kp * p + Kbbb * pow(b, 3) - (rho_water * g * gm * disp) * b
     + Kb * b
 
     Nh = Nauv * au * v + Naur * au * r + Nrar * r * ar + Nrav * r * av
     +Nbauv * b * abs(u * v) + Nbuar * b * u * ar + Nbuau * b * u * au
 
-    #Rigid - body centripetal accelerations
-    Xc = m * (r * v + xG * r ^ 2 - zG * p * r)
+    # Rigid - body centripetal accelerations
+    Xc = m * (r * v + xG * pow(r, 2) - zG * p * r)
+    # print("Xc is ", Xc)
     Yc = - m * u * r
     Kc = m * zG * u * r
     Nc = - m * xG * u * r
 
-    #Total forces
+    # Total forces
     Xe = 0
     Ye = 0
     Ke = 0
@@ -141,10 +157,20 @@ def pinn_loss_4dof(u, v, p, r, phi, u_prev, v_prev, p_prev, r_prev):
     F4 = Kh + Kc + Ke
     F6 = Nh + Nc + Ne
 
-    F_pred = torch.from_numpy(np.array([F1,F2,F4,F6]))
+    F_pred = torch.from_numpy(np.array([F1, F2, F4, F6]))
+    # print("F_pred shape is ", F_pred.shape)  # [4, 128, 50])
     sampling_time = 1
-    acceleration_true = torch.from_numpy(np.array([(u-u_prev)/sampling_time, (v-v_prev)/sampling_time, (p-p_prev)/sampling_time, (r-r_prev)/sampling_time]))
-    F_true = torch.mm(acceleration_true, M, out=None)
+    acceleration_true = torch.from_numpy(np.array(
+        [(u - u_prev) / sampling_time, (v - v_prev) / sampling_time, (p - p_prev) / sampling_time,
+         (r - r_prev) / sampling_time]))
+    # print("acceleration_true shape is ", acceleration_true.shape)  # (4, 128, 50)
+    # print("M shape is ", M.shape)  # （4x4）
+    acceleration_true = acceleration_true.permute(1, 2, 0).unsqueeze(
+        2)  # change dim from (4, 128, 50) to (128, 50, 1, 4)
+    # print("acceleration_true shape is ", acceleration_true.shape)
+    F_true = torch.matmul(acceleration_true, M, out=None)
+    # print("F true shape is ", F_true.shape)
+    F_true = F_true.squeeze(2).permute(2, 0, 1)
     force_residual = F_true - F_pred
     MSE_R = torch.sum(force_residual * force_residual)
     return MSE_R
