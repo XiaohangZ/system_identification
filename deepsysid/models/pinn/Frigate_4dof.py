@@ -29,6 +29,7 @@ class FrigatePINNModel_4dofConfig(DynamicIdentificationModelConfig):
     learning_rate: float
     batch_size: int
     epochs: int
+    alpha: int
 
 
 class FrigatePINNModel_4dof(base.DynamicIdentificationModel, abc.ABC):
@@ -44,6 +45,7 @@ class FrigatePINNModel_4dof(base.DynamicIdentificationModel, abc.ABC):
         self.sequence_length = config.sequence_length
         self.learning_rate = config.learning_rate
         self.batch_size = config.batch_size
+        self.alpha = config.alpha
         self.model = (
             PINNNet(
                 inputNode=self.control_dim,
@@ -99,7 +101,7 @@ class FrigatePINNModel_4dof(base.DynamicIdentificationModel, abc.ABC):
                 phi = signals[:, :, -1].unsqueeze(dim=2)
                 # print(labels.shape, state_pred.shape, phi.shape, state_pred.shape)
                 MSE_R = pinn_loss_4dof(labels[:, :, 0], labels[:, :, 1], labels[:, :, 2], labels[:, :, 3], phi[:,:,0], state_pred[:, :, 0], state_pred[:, :, 1], state_pred[:, :, 2], state_pred[:, :, 3])
-                batch_loss = MSE_r + MSE_R
+                batch_loss = MSE_r + self.alpha * MSE_R
                 total_loss += batch_loss.item()
                 batch_loss.backward()
                 self.optimizer.step()
