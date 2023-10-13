@@ -61,4 +61,4 @@ def traverse_folder_with_json(folder_path, json):
 
 
 
-# traverse_folder_with_json(r'D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\results\repeat-1', json)
+traverse_folder_with_json(r'D:\OneDrive\Captures\Masterarbeit\code_of_masterarbeit\system_identification_of_ship\results\repeat-1', json)
